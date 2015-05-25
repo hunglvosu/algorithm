@@ -6,7 +6,7 @@
  */
 
 
-int partition(int arr[], int x, int y, int p){
+/*int partition(int arr[], int x, int y, int p){
 	swap(&arr[p],&arr[y]);
 	int i = x;
     int j = y;
@@ -20,6 +20,20 @@ int partition(int arr[], int x, int y, int p){
     }
     swap(&arr[i],&arr[y]);
     return i;
+}*/
+int partition(int arr[], int x, int y, int p){
+	swap(&arr[p],&arr[y]);
+		int i = x;
+		int j = y-1;
+	    while( i <= j){
+	    	while(arr[i] < arr[y] && i <= j){i++;}
+	    	while(arr[j] >= arr[y] && i <= j){j--;}
+	    	if(i < j) {
+	    		swap(&arr[i],&arr[j]);
+	    	}
+	    }
+	    swap(&arr[i],&arr[y]);
+	    return i;
 }
 void swap(int *a, int *b){
 		int i = *a;
