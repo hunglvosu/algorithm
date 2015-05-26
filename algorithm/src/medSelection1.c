@@ -3,12 +3,13 @@
  *
  *  Created on: May 24, 2015
  *      Author: hunglv
+ *   This code contains a general framework for finding median of an array
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define SIZE 1000000
-int main(void) {
+int test_med_selection() {
+	int SIZE = 1000000;
 	int _array[SIZE];
 	int k = rand()%SIZE + 1;
 	memset(_array, 0, sizeof(_array));
