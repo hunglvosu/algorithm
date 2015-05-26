@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 int test_med_selection() {
 	int SIZE = 1000000;
 	int _array[SIZE];
@@ -16,7 +17,6 @@ int test_med_selection() {
 	random_array(_array, SIZE, 10000);
 	int r = quick_select(_array, 0, SIZE-1, k-1);
 	printf("%d\n",r);
-	return EXIT_SUCCESS;
 }
 
 int quick_select(int arr[], int x, int y, int k){
