@@ -10,7 +10,7 @@
 #include<string.h>
 
 
-int main(void){
+void test_linear_selection(){
 	int SIZE = 1000000;
 	int _array[SIZE];
 	int k = rand()%SIZE + 1;
