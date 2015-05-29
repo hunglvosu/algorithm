@@ -11,18 +11,6 @@
 #include<string.h>
 
 
-int main(void){
-	int SIZE = 1000000;
-	int _array[SIZE];
-	int k = rand()%SIZE + 1;
-	memset(_array, 0, sizeof(_array));
-	random_array(_array, SIZE, 10000);
-	clock_t tick = clock();
-	merge_sort(_array, 0, SIZE-1);
-	clock_t tock = clock();
-	printf("time: %fs",(double)(tock - tick)/CLOCKS_PER_SEC);
-}
-
 void merge_sort(int _array[], int x, int y){
 	if(x < y){
 		int m = (y + x +1)/2-1;

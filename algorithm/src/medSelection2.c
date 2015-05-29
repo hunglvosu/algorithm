@@ -10,16 +10,6 @@
 #include<string.h>
 
 
-void test_linear_selection(){
-	int SIZE = 1000000;
-	int _array[SIZE];
-	int k = rand()%SIZE + 1;
-	memset(_array, 0, sizeof(_array));
-	random_array(_array, SIZE, 10000);
-	int r = linear_selection(_array, 0, SIZE-1, k-1);
-
-
-}
 int linear_selection(int _array[], int x, int y, int k){
 	if(y - x <= 24) {
 		return med_exhaustive(_array, x, y ,k);
