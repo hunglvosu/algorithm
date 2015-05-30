@@ -7,7 +7,11 @@
 #include<time.h>
 #include<stdio.h>
 #include<string.h>
-
+void main (void){
+	int _array[8];
+	memset(_array, 0, sizeof(_array));
+	recursive_queen(_array, 7, 0);
+}
 
 void recursive_queen(int _array[], int n, int r){
 	int i=1, j = 1;
