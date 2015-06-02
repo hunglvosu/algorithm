@@ -12,7 +12,9 @@
 
 
 int binary_search(int _array[], int x, int y, int a){
-	if(x == y) return x;
+	if(x == y) {
+		return x;
+	}
 	else if( x< y){
 		int m = (x+y)/2;
 		if(_array[m] < a) {
