@@ -9,11 +9,6 @@
 #include<stdio.h>
 #include<string.h>
 
-void main (void){
-	int X[7] = {8,6,7,5,3,10,9};
-	int T = 12;
-	printf("%d\n", dynamic_subset_sum(X, 7, T));
-}
 
 int subset_sum(int X[], int r, int T){
 	if(T == 0) return 1;
