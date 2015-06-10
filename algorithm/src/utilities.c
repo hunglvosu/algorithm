@@ -6,6 +6,12 @@
  */
  #include <string.h>
 
+struct node {
+  int id;
+  int x;
+  struct node *next;
+};
+
 void random_array(int _array[], int size, int max){
 	int i = 0;
 	memset(_array, 0, sizeof(_array));
@@ -30,6 +36,30 @@ void printArr(int arr[] , int n){
 	int i = 0;
 	for (i = 0 ; i < n ; i++){
 		printf("%d,", arr[i]);
+	}
+	printf("\n");
+}
+
+void print_list(struct node *root){
+	struct node *conductor;
+	conductor = root;
+	while(conductor != NULL){
+	   	printf("%d,%d->", conductor->id, conductor->x);
+	   	conductor = conductor-> next;
+	 }
+	printf("\n");
+}
+
+void print_bit(int n){
+	int i = 0;
+	int t = n;
+	int A[32];
+	for (i = 0; i < 32; i++){
+			A[i] = t&1;
+			t = t >> 1;
+	}
+	for(i = 31; i >= 0; i--){
+		printf("%d",A[i]);
 	}
 	printf("\n");
 }

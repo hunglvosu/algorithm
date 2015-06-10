@@ -14,11 +14,6 @@ int F[MAX][MAX];
 int C[MAX][MAX];//cost array
 int R[MAX][MAX];// root array
 
-void main (void){
-	int K[6] = {1,2,3,4,5,6};
-	int f[6] = {1,5,3,4,2,3};
-    printf("%d -- %d\n",opt_binary_search_tree(f,6), knuth_binary_search_tree(f,6));
- }
 
 int opt_binary_search_tree(int f[], int size){
 	int i = 0, j = 0;
