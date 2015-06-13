@@ -28,14 +28,14 @@ struct node {
   int x;
   struct node *next;
 };
-void main (void){
-	int n = 4;
-	C[0][0] = 0; C[0][1] = 5; C[0][2] = 7; C[0][3] = 3;
-	C[1][0] = 5; C[1][1] = 0; C[1][2] = 10; C[1][3] = 4;
-	C[2][0] = 7; C[2][1] = 10; C[2][2] = 0; C[2][3] = 2;
-	C[3][0] = 3; C[3][1] = 4; C[3][2] = 2; C[3][3] = 0;
-	printf("optimal tour: %d \n", dynamic_tsp(n));
-}
+//void main (void){
+//	int n = 4;
+//	C[0][0] = 0; C[0][1] = 5; C[0][2] = 7; C[0][3] = 3;
+//	C[1][0] = 5; C[1][1] = 0; C[1][2] = 10; C[1][3] = 4;
+//	C[2][0] = 7; C[2][1] = 10; C[2][2] = 0; C[2][3] = 2;
+//	C[3][0] = 3; C[3][1] = 4; C[3][2] = 2; C[3][3] = 0;
+//	printf("optimal tour: %d \n", dynamic_tsp(n));
+//}
 
 int dynamic_tsp (int n){
 	unsigned int set;

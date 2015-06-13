@@ -12,6 +12,11 @@ struct node {
   struct node *next;
 };
 
+typedef struct{
+    int x;
+    int y;
+  }pair;
+
 void random_array(int _array[], int size, int max){
 	int i = 0;
 	memset(_array, 0, sizeof(_array));
@@ -60,6 +65,14 @@ void print_bit(int n){
 	}
 	for(i = 31; i >= 0; i--){
 		printf("%d",A[i]);
+	}
+	printf("\n");
+}
+
+void print_pair_array(pair A[], int n){
+	int i = 0;
+	for(i = 0; i < n; i++){
+		printf("(%d,%d) ", A[i].x, A[i].y);
 	}
 	printf("\n");
 }
