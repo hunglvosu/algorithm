@@ -23,13 +23,13 @@ typedef struct{
   }pair;
 
 
-void main (void){
-	int n = 10, m = 12;
-	int A[10] = {3,6,7,5,3,5,6,2,9,1};
-	int B[12] = {2,7,0,9,3,6,0,6,2,6,1,8};
-	printf("%d---%d\n",lcs(A,B,n,m), sparse_lcs(A, B, n,m));
-
-}
+//void main (void){
+//	int n = 10, m = 12;
+//	int A[10] = {3,6,7,5,3,5,6,2,9,1};
+//	int B[12] = {2,7,0,9,3,6,0,6,2,6,1,8};
+//	printf("%d---%d\n",lcs(A,B,n,m), sparse_lcs(A, B, n,m));
+//
+//}
 
 int lcs(int A[], int B[], int n, int m){
 	int LCS[n+1][m+1];

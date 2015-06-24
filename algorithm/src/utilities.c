@@ -23,6 +23,18 @@ void random_array(int _array[], int size, int max){
 	for( i= 0; i < size; i++ ) _array[i] = rand() %max;
 }
 
+int int_inc_compare(const void *a, const void *b){
+	int *d_a = (int *)a;
+	int *d_b = (int *)b;
+	return (*d_a - *d_b);
+}
+
+int int_dec_compare(const void *a, const void *b){
+	int *d_a = (int *)a;
+	int *d_b = (int *)b;
+	return (*d_b - *d_a);
+}
+
 char *random_string(int length){
 	static const char alphanum[] =
 	"0123456789"
@@ -44,6 +56,8 @@ void printArr(int arr[] , int n){
 	}
 	printf("\n");
 }
+
+
 
 void print_list(struct node *root){
 	struct node *conductor;
