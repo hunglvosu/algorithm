@@ -40,12 +40,12 @@ int slow_dynamic(int A[], int B[], int n);
 stack_node *pop();
 stack_node *peek();
 
-void main (void){
-	int n = 6;
-	A[0] = 1; A[1]= 2; A[2] = 3; A[3] = 10; A[4] = 20; A[5] = 30;
-	B[0] = 6; B[1]= 5; B[2] = 4; B[3] = 3; B[4] = 2; B[5] = 0;
-	printf("%d -- %d -- %d\n", slow_dynamic(A, B, n), fast_dynamic(A, B, n), fast_fast_dynamic(A,B,n));
-}
+//void main (void){
+//	int n = 6;
+//	A[0] = 1; A[1]= 2; A[2] = 3; A[3] = 10; A[4] = 20; A[5] = 30;
+//	B[0] = 6; B[1]= 5; B[2] = 4; B[3] = 3; B[4] = 2; B[5] = 0;
+//	printf("%d -- %d -- %d\n", slow_dynamic(A, B, n), fast_dynamic(A, B, n), fast_fast_dynamic(A,B,n));
+//}
 
 int slow_dynamic(int A[], int B[], int n){
 	memset(C, 0, sizeof(C));
