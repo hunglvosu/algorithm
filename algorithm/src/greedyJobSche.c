@@ -30,19 +30,19 @@ long long greedy_scheduling(int n);
 long long union_find_scheduling(int n);
 
 
-void main (void){
-	int n = 5;
-	A[0].id = 0; A[0].d = 2; A[0].p = 100;
-	A[1].id = 1; A[1].d = 2; A[1].p = 27;
-	A[2].id = 2; A[2].d = 1; A[2].p = 25;
-	A[3].id = 3; A[3].d = 3; A[3].p = 15;
-	A[4].id = 3; A[4].d = 1; A[4].p = 19;
-	long long result1 = greedy_scheduling(n);
-	long long result2 = union_find_scheduling(n);
-	printf("greedy scheduling: %ld \n", result1);
-	printf("union-find scheduling: %ld \n", result2);
-
-}
+//void main (void){
+//	int n = 5;
+//	A[0].id = 0; A[0].d = 2; A[0].p = 100;
+//	A[1].id = 1; A[1].d = 2; A[1].p = 27;
+//	A[2].id = 2; A[2].d = 1; A[2].p = 25;
+//	A[3].id = 3; A[3].d = 3; A[3].p = 15;
+//	A[4].id = 3; A[4].d = 1; A[4].p = 19;
+//	long long result1 = greedy_scheduling(n);
+//	long long result2 = union_find_scheduling(n);
+//	printf("greedy scheduling: %ld \n", result1);
+//	printf("union-find scheduling: %ld \n", result2);
+//
+//}
 
 long long greedy_scheduling(int n){
 	qsort(A, n, sizeof(*A), compare_profit);
