@@ -14,7 +14,7 @@ char T[] = " dlcimglkblhcch";
 char P[] = " mglkblhc";
 int  S[28][MAXM];
 int  F[MAXM];
-char Alph[28] = " abcdefghijklmnopqrstuvwxyz";
+//char Alph[28] = " abcdefghijklmnopqrstuvwxyz";
 
 //void main (void){
 //	int n = 14, m = 8;
