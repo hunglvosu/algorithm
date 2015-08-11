@@ -27,26 +27,26 @@ void computeLL(int m, int *LL, int *Zbar);
 void computeSL(int m, int *SL, int *Zbar);
 void compute_Z_function(char *S, int *Z, int n);
 
-int main (void){
-	char text[] = "dlcimglkblhcch";
-	char pattern[] = "mglkblhc";
-	int i = 0;
-	T[0] = " ";
-	for(i = 0; i < strlen(text); i++){
-		T[i+1] = text[i];
-	}
-	P[0] = " ";
-	for(i = 0; i < strlen(pattern); i++){
-		P[i+1] = pattern[i];
-	}
-	int n = 14, m = 8;
-	i = 1;
-	printf("%d\n",BFmatcher(n,m));
-	printf("%d\n",BMmatcher(n,m));
-	printf("%d\n",fastBMmatcher(n,m));
-	printf("%d\n", fastfastBMmatcher(n,m));
-	return 0;
-}
+//int main (void){
+//	char text[] = "dlcimglkblhcch";
+//	char pattern[] = "mglkblhc";
+//	int i = 0;
+//	T[0] = " ";
+//	for(i = 0; i < strlen(text); i++){
+//		T[i+1] = text[i];
+//	}
+//	P[0] = " ";
+//	for(i = 0; i < strlen(pattern); i++){
+//		P[i+1] = pattern[i];
+//	}
+//	int n = 14, m = 8;
+//	i = 1;
+//	printf("%d\n",BFmatcher(n,m));
+//	printf("%d\n",BMmatcher(n,m));
+//	printf("%d\n",fastBMmatcher(n,m));
+//	printf("%d\n", fastfastBMmatcher(n,m));
+//	return 0;
+//}
 /*
  * An implementation of Boyer-Moore algorithm with bad character rule.
  */

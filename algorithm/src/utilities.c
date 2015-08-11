@@ -5,6 +5,9 @@
  *      Author: hunglv
  */
  #include <string.h>
+#include<stdlib.h>
+
+typedef unsigned long long int LLU;
 
 struct node {
   int id;
@@ -87,6 +90,28 @@ void print_pair_array(pair A[], int n){
 	int i = 0;
 	for(i = 0; i < n; i++){
 		printf("(%d,%d) ", A[i].x, A[i].y);
+	}
+	printf("\n");
+}
+
+LLU random64(){
+	LLU n  = 0;
+	int l = rand()%(RAND_MAX-2)+2;
+	int r = rand()%(RAND_MAX) + rand()%2;
+	n = n | ((LLU)r);
+	n = n << 32;
+	n = n | ((LLU)l);
+	return n;
+}
+void display_bit(LLU n){
+	int bit[64];
+	int i = 0;
+	for(i = 0; i < 64; i++){
+		bit[63-i] = (n& ((LLU)1));
+		n = n >> 1;
+	}
+	for(i = 0; i < 64;i ++){
+		printf("%d", bit[i]);
 	}
 	printf("\n");
 }
