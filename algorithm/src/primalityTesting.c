@@ -47,6 +47,10 @@ LLU mod_power(LLU a, LLU b, LLU p);
 //    }
 //}
 
+/*
+ * The miller-rabin primality testing algorithm
+ * See http://www.giaithuatlaptrinh.com/?p=278 for details.
+ */
 int miller_rabin_testing(int acc, LLU N){
 	LLU a = 0;
 	int i = 0;
@@ -63,45 +67,6 @@ int miller_rabin_testing(int acc, LLU N){
 		}
 	}
 	return PRIME;
-}
-
-LLU gcd(LLU a, LLU b){
-	LLU tmp;
-	while  (b != 0){
-		tmp  = b;
-		b = a % b;
-		a = tmp;
-	}
-	return a;
-}
-
-LLU mod_power(LLU a, LLU b, LLU p){
-	if (b == 1){
-		return a %p;
-	} else {
-		LLU x = mod_power(a, b/2, p);
-		if((b& 1) == 0){ // b is even
-			return mod_mul(x,x,p); // return  (x*x)%p;
-		} else {
-			return (mod_mul(mod_mul(x,x,p), a, p));// return (x*x*a)%p;
-		}
-	}
-}
-/*
- * this function compute (a*b) \mod p using (\log_2a + 1) space
- */
-
-LLU mod_mul(LLU a, LLU b, LLU p){
-	if (b == 1){
-		return a %p;
-	} else {
-		LLU x = mod_mul(a, b/2, p);
-		if((b& 1) == 0){ // b is even
-			return (x+x)%p;
-		} else {
-			return (((x+x)%p)+a)%p;
-		}
-	}
 }
 
 
@@ -129,7 +94,9 @@ int witness(LLU a,  LLU N){
 	}
 	return COMPOSITE;
 }
-
+/*
+ * decomposing p = 2^k*m
+ */
 void decompose(LLU p, int *k, LLU *m){
 	int i = 0;
 	while ((p& 1) == 0){ // p is even
