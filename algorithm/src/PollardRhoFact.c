@@ -11,35 +11,25 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define PRIME 1
-#define COMPOSITE 0
-#define MAXNUMFACT 64 // the maximum number of factors
+#include "numbers.h"
 
-typedef unsigned long long int LLU; // using unsigned long long type to avoid overflow
+#define MAXNUMFACT 64 // the maximum number of factors
 
 LLU Fa[MAXNUMFACT];// the array storing factors
 int nfact = -1; // the number of factors
 
-int miller_rabin_testing(int acc, LLU N);
-void decompose(LLU p, int *k, LLU *m);
-LLU llu_fsqrt(LLU N);
-LLU mod_mul(LLU a, LLU b, LLU p);
-LLU random64();
 LLU next_prng(LLU x, LLU N);
-LLU gcd(LLU a, LLU b);
 LLU find_factor(LLU N);
-LLU mod_power(LLU a, LLU b, LLU p);
 void fast_native_fact(LLU N);
 int llu_cmp(const void *a, const void *b);
-void pollard_rho_fact(LLU N);
 void print_factors(void);
 
-int main (void){
-	memset(Fa,0,sizeof(Fa)); // set everything to zero
-	pollard_rho_fact((LLU)2432902008176640000);
-	print_factors();
-	return 0;
-}
+//int main (void){
+//	memset(Fa,0,sizeof(Fa)); // set everything to zero
+//	pollard_rho_fact((LLU)2432902008176640000);
+//	print_factors();
+//	return 0;
+//}
 
 
 void pollard_rho_fact(LLU N){

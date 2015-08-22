@@ -10,40 +10,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include "stringsearch.h"
+#include "utilities.h"
+#include "numbers.h"
+
 #define MAXN 100
 #define MAXM 20
 #define PRIME 1
 #define COMPOSITE 0
 
-typedef unsigned long long int LLU; // using unsigned long long type to avoid overflow
-
-char T[MAXN];
-char P[MAXM];
-
-
-
-LLU mod_power(LLU a, LLU b, LLU p);
 LLU random_prime(LLU N);
-int miller_rabin_testing(int acc, LLU N);
-LLU random64();
-int isequal(s,m);
-int RabinKarpMatcher(int n,int m);
+int isequal(int s,int m);
 
 
-//void main (void){
-//	char text[] = "dlcimglkblhcch";
-//	char pattern[] = "mglkblhc";
-//	int i = 0;
-//	T[0] = " ";
-//	for(i = 0; i < strlen(text); i++){
-//		T[i+1] = text[i];
-//	}
-//	P[0] = " ";
-//	for(i = 0; i < strlen(pattern); i++){
-//		P[i+1] = pattern[i];
-//	}
+//int main (void){
 //	int n = 14, m = 8;
 //	printf("%d\n", RabinKarpMatcher(n,m));
+//	return 0;
 //}
 
 
@@ -80,10 +63,8 @@ int isequal(int s, int m){
 	else return 0;
 }
 
-/*
- * generating a random 32 bit prime number using Miller-Rabin primality testing
- * See //www.giaithuatlaptrinh.com/?p=278 for details
- */
+/* Generating a random 32 bit prime number using Miller-Rabin primality testing
+  See //www.giaithuatlaptrinh.com/?p=278 for details */
 LLU random_prime(LLU N){
 	LLU q = random64()%(N-2)+2;
 	while(miller_rabin_testing(10, q) != PRIME){

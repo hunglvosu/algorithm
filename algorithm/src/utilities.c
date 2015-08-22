@@ -97,10 +97,8 @@ void print_pair_array(pair A[], int n){
 	}
 	printf("\n");
 }
-/*
- * Computing $a^b mod p$
- */
 
+/* Computing a^b mod p*/
 LLU mod_power(LLU a, LLU b, LLU p){
 	if (b == 1){
 		return a %p;
@@ -113,9 +111,7 @@ LLU mod_power(LLU a, LLU b, LLU p){
 		}
 	}
 }
-/*
- * computing the greatest common divisor of $a$ and $b$
- */
+/*Computing the greatest common divisor of a and b*/
 LLU gcd(LLU a, LLU b){
 	LLU tmp;
 	while  (b != 0){
@@ -125,10 +121,8 @@ LLU gcd(LLU a, LLU b){
 	}
 	return a;
 }
-/*
- * generating  a 64-bit random integer
- */
 
+/* Generating  a 64-bit random integer*/
 LLU random64(){
 	LLU n  = 0;
 	int l = rand()%(RAND_MAX-2)+2; // the last 32 bits
@@ -190,9 +184,7 @@ int int_rfsqrt(int N){
 	return R[m];
 
 }
-/*
- * computing (a*b) mod p using (\log_2 b + 1) space
- */
+/* computing (a*b) mod p using (\log_2 b + 1) space */
 LLU mod_mul(LLU a, LLU b, LLU p){
 	if (b == 1){
 		return a %p;

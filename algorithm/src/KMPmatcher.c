@@ -8,19 +8,27 @@
 #include<time.h>
 #include<stdio.h>
 #include<string.h>
+#include "stringsearch.h"
 #define MAXM 20
 
 char T[] = " dlcimglkblhcch";
 char P[] = " mglkblhc";
+
 int  S[28][MAXM];
 int  F[MAXM];
-//char Alph[28] = " abcdefghijklmnopqrstuvwxyz";
 
-//void main (void){
+char Alpha[28] = " abcdefghijklmnopqrstuvwxyz";
+
+void compute_backup(int m);
+void compute_failure(int m);
+
+//
+//int main (void){
 //	int n = 14, m = 8;
 //	printf("%d\n",BFmatcher(n,m));
 //	printf("%d\n",KMPmatcher(n,m));
 //	printf("%d\n",fastKMPmatcher(n,m));
+//	return 0;
 //}
 
 int BFmatcher(int n, int m){

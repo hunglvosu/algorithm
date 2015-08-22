@@ -10,24 +10,16 @@
 #include<stdlib.h>
 #include<math.h>
 #include<string.h>
+#include "numbers.h"
 
-typedef unsigned long long int LLU;
 #define NUMTEST 500
-#define PRIME 1
-#define COMPOSITE 0
 
 LLU N[NUMTEST];
-
 int n;
 
 
-int miller_rabin_testing(int acc, LLU N);
-LLU gcd(LLU a, LLU b);
 int witness(LLU a,  LLU N);
 void decompose(LLU p, int *k, LLU *m);
-LLU random64();
-LLU mod_mul(LLU a, LLU b, LLU p);
-LLU mod_power(LLU a, LLU b, LLU p);
 
 //int main() {
 //    cin >> n; // the number of test cases
@@ -45,12 +37,17 @@ LLU mod_power(LLU a, LLU b, LLU p);
 //    		printf("NO\n");
 //    	}
 //    }
+//	LLU N = 10000019;
+//	if(miller_rabin_testing(10, N) == PRIME){
+//		printf("prime\n");
+//	}else {
+//		printf("composite\n");
+//	}
+//	return 0;
 //}
 
-/*
- * The miller-rabin primality testing algorithm
- * See http://www.giaithuatlaptrinh.com/?p=278 for details.
- */
+/* The miller-rabin primality testing algorithm
+   See http://www.giaithuatlaptrinh.com/?p=278 for details. */
 int miller_rabin_testing(int acc, LLU N){
 	LLU a = 0;
 	int i = 0;

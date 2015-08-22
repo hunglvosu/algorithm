@@ -8,19 +8,14 @@
 #include<time.h>
 #include<stdio.h>
 #include<string.h>
+#include "stringsearch.h"
+
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) < (y)) ? (y) : (x))
 #define MAXN 100
 #define MAXM 20
 #define INFTY 100000000
 
-char T[MAXN];
-char P[MAXM];
-
-int BFmatcher(int n,int m);
-int BMmatcher(int n,int m);
-int fastBMmatcher(int n,int m);
-int fastfastBMmatcher(int n,int m);
 void badCharBackup(int m, int *R); // the implementation of bad character rule.
 void extendedBadChar(int m, int *S); // the implementation of the extended bad character rule.
 void computeLL(int m, int *LL, int *Zbar);
@@ -28,19 +23,7 @@ void computeSL(int m, int *SL, int *Zbar);
 void compute_Z_function(char *S, int *Z, int n);
 
 //int main (void){
-//	char text[] = "dlcimglkblhcch";
-//	char pattern[] = "mglkblhc";
-//	int i = 0;
-//	T[0] = " ";
-//	for(i = 0; i < strlen(text); i++){
-//		T[i+1] = text[i];
-//	}
-//	P[0] = " ";
-//	for(i = 0; i < strlen(pattern); i++){
-//		P[i+1] = pattern[i];
-//	}
 //	int n = 14, m = 8;
-//	i = 1;
 //	printf("%d\n",BFmatcher(n,m));
 //	printf("%d\n",BMmatcher(n,m));
 //	printf("%d\n",fastBMmatcher(n,m));

@@ -8,19 +8,22 @@
 #include<time.h>
 #include<stdio.h>
 #include<string.h>
+#include"stringsearch.h"
+#include"utilities.h"
+
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) < (y)) ? (y) : (x))
 #define MAXN 10000
 #define INFTY 100000000
 
-char S[] = " aaababaaaaab";
-int Z[MAXN];
-int L,R;
 
-//void main (void){
+//int main (void){
+//	char S[] = " aaababaaaaab";
+//	int Z[MAXN];
 //	int n = strlen(S)-1;
 //	compute_Z_function(S,Z, n);
 //	printArr(Z, n+1);
+//	return 0;
 //}
 
 void compute_Z_function(char *S,int *Z, int n){
