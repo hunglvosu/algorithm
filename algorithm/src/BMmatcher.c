@@ -22,6 +22,9 @@ void computeLL(int m, int *LL, int *Zbar);
 void computeSL(int m, int *SL, int *Zbar);
 void compute_Z_function(char *S, int *Z, int n);
 
+char *T;
+char *P;
+
 //int main (void){
 //	int n = 14, m = 8;
 //	printf("%d\n",BFmatcher(n,m));

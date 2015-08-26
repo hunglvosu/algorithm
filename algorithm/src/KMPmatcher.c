@@ -11,13 +11,13 @@
 #include "stringsearch.h"
 #define MAXM 20
 
-char T[] = " dlcimglkblhcch";
-char P[] = " mglkblhc";
+//char T[] = " dlcimglkblhcch";
+//char P[] = " mglkblhc";
 
 int  S[28][MAXM];
 int  F[MAXM];
 
-char Alpha[28] = " abcdefghijklmnopqrstuvwxyz";
+char Alphabet[ALPHABET_SIZE] = " abcdefghijklmnopqrstuvwxyz{";
 
 void compute_backup(int m);
 void compute_failure(int m);
@@ -116,4 +116,30 @@ void compute_failure(int m){
 
 
 
+//void update_str_depth(snode *r, int depth){
+//	r->strdepth = depth;
+//	int i = 0;
+//	for(i = 0; i < ALPHABET_SIZE; i++){
+//		if(r->Cr[i] != NULL){
+//			update_str_depth(r->Cr[i], r->Cr[i]->rightEL - r->Cr[i]->leftEL+ 1 + depth);
+//		}
+//	}
+//}
 
+//void longest_repeated_substr(char *T){
+//	snode *root = native_suffix_tree(T);
+//	find_nonleaf_deepest_node(root);
+//	printf("deepest node: %d--%d\n", deepest_node->leftEL, deepest_node->rightEL);
+//}
+//
+//void find_nonleaf_deepest_node(snode *r){
+//	if(r->strdepth > deepest_node->strdepth){
+//		deepest_node = r;
+//	}
+//	int i = 0;
+//	for(i = 0; i < ALPHABET_SIZE; i++){
+//		if(r->Cr[i] != NULL && r->Cr[i]->node_label !=0){
+//			find_nonleaf_deepest_node(r->Cr[i]);
+//		}
+//	}
+//}

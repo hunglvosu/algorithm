@@ -29,8 +29,8 @@
 								<option id="gnu.c.compiler.option.debugging.level.1015421396" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1995540801" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
-							<tool command="gcc -lm" id="cdt.managedbuild.tool.gnu.c.linker.base.926178411" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base">
-								<option id="gnu.c.link.option.libs.1557333705" superClass="gnu.c.link.option.libs" valueType="libs">
+							<tool command="gcc" id="cdt.managedbuild.tool.gnu.c.linker.base.926178411" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base">
+								<option id="gnu.c.link.option.libs.1557333705" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="m"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1015272924" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
@@ -120,4 +120,6 @@
 			<resource resourceType="PROJECT" workspacePath="/algorithm"/>
 		</configuration>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

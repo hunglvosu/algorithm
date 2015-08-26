@@ -7,10 +7,10 @@
 
 #ifndef STRINGSEARCH_H_
 #define STRINGSEARCH_H_
-
-extern char T[];
-extern char P[];
-extern char Alph[28]; // the alphabet is Enligh 26 character alphabet
+#define ALPHABET_SIZE 28
+extern char *T;
+extern char *P;
+extern char Alphabet[ALPHABET_SIZE]; // the alphabet is 26 character alphabet
 /*An implementation of brute-force string matching algorithm*/
 int BFmatcher(int n,int m);
 

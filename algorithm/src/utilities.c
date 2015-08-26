@@ -76,6 +76,25 @@ void print_list(struct node *root){
 	printf("\n");
 }
 
+char *strrev(char *str){
+	int n = strlen(str);
+	char *s = (char *)malloc(n*sizeof(char));
+	int i = 0;
+	for( i = 0 ; i < n; i++){
+		s[i] = str[n-i-1];
+	}
+	return s;
+}
+void print_str(char *str){
+	int n = strlen(str);
+	int i = 0;
+	for( i = 0 ; i < n; i++){
+		printf("%c", str[i]);
+	}
+	printf("\n");
+}
+
+
 void print_bit(int n){
 	int i = 0;
 	int t = n;

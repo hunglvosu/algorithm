@@ -11,127 +11,264 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include "stringsearch.h"
+#include "utilities.h"
 
-#define MAXN 100
-#define MAXM 20
+#define TRUE 1
+#define FALSE 0
+#define MAXN 20
+#define MAXM 8
 
-typedef struct node {
+typedef struct snode {
 	int leftEL;
 	int rightEL;
 	int node_label;
-	struct node** Cr;
-	struct node *parent;
-	int num_child;
-} node;
+	struct snode** Cr; // children pointers
+	struct snode *parent;
+	int leafcnt;  // the number of leaves of the subtree rooted at this node
+	int strdepth; // the string depth
+} snode;
 
-node *make_node(int i, int j);
-node *make_leaf(int i, int k);
-void replace_parent(node *x, node *v);
+snode *make_node(int i, int j);
+snode *make_leaf(int i,int n, int k);
+void replace_parent(snode *x, snode *v);
 int get_index(char c);
-node *init_suffix_tree(char S[]);
-node *find_path(int i, node *r, int *ss, int *j);
+snode *init_suffix_tree(int n);
+snode *native_suffix_tree(char *Txt);
+snode *find_path(char *P, int first, int last, snode *r, int *mlt, int *mlp);
+int is_substring(char *P, snode *r);
+int is_suffix(char *P, char *Ts);
+int count_occurence(char *P, snode *r);
+char *longest_repeated_substr(snode *r);
+void print_smallest_lex_suffix(snode *r);
+snode *find_nonleaf_deepest_node(snode *r);
 
-char Sx[] = " xabxacxabxxabx}";
-extern int n;
-//int main (void){
-//	node *root = init_suffix_tree(Sx);
-//	int i = 0;
-//	int s = 0,j=0;
-//	node *v = NULL;
-//	int rv,lv;
-//	node *x;
-//	for(i = 2; i <= n ;i++){
-////		printf("i= %d:",i);
-//		v = find_path(i,root, &s, &j);
-//		lv = v->leftEL;
-//		rv = v->rightEL;
-//		 if(s < rv){
-//			v->leftEL = s+1;
-//			x = make_node(lv,s);
-//			replace_parent(x,v);
-////			printf("new x: %d -- %d --%c\n",x->leftEL,x->rightEL, Sx[s+1]);
-//		} else {
-//			x = v;
-//		}
-//		node *u = make_leaf(j,i);
-//		u->parent = x;
-//		x->Cr[get_index(Sx[j])]  = u;
-////		printf("s=%d++u=%c\n",s, Sx[j]);
-//
-//	}
-//	return 0;
-//}
+char *T;
+char Alphabet[ALPHABET_SIZE];
 
-void replace_parent(node *x, node *v){
-	node *pv = v->parent;
+
+int main (void){
+    char Txt[] = " xabxacxabxxabx{";
+    char Ptn[] = " xab";
+    snode *root = native_suffix_tree(Txt);
+    int iss = is_substring(Ptn,root);
+    if(iss == TRUE){
+    	printf("yes\n");
+    } else {
+    	printf("no\n");
+    }
+    int cnt_occurence = count_occurence(Ptn, root);
+    printf("the number of occurences: %d\n", cnt_occurence);
+    printf("the smallest lexicographic suffix: ");
+    print_smallest_lex_suffix(root);
+    printf("\n");
+    printf("the longest repeated substring: ");
+    char *lrs = longest_repeated_substr(root);
+    print_str(lrs);
+    return 0;
+}
+
+
+snode *native_suffix_tree(char *Txt){
+	T = Txt;
+	int n = strlen(T)-1;
+	snode *root = init_suffix_tree(n);
+	int i = 0;
+	int mlt = 0,mlp=0;
+	snode *v = NULL;
+	int rv,lv;
+	snode *x;
+	for(i = 2; i <= n ;i++){
+		v = find_path(T,i,n,root, &mlp, &mlt);
+		lv = v->leftEL;
+		rv = v->rightEL;
+		 if(mlt < rv){
+			v->leftEL = mlt+1;
+			x = make_node(lv,mlt);
+			replace_parent(x,v);
+		} else {
+			x = v;
+		}
+		snode *u = make_leaf(mlp+1,n,i);
+		u->parent = x;
+		x->Cr[get_index(T[mlp+1])]  = u; // T[mlp+1] is the first character of the edge xu
+	}
+	return root;
+}
+
+snode *find_path(char *P, int first, int last, snode *r, int *mlp, int *mlt){
+	snode *c = r->Cr[get_index(P[first])];
+	if(c == NULL || first > last){
+		*mlt = r->rightEL;
+		*mlp = first-1;
+		return r;
+	}
+	int i = first;
+	int j = c->leftEL;
+	int rc = c->rightEL;
+	while(P[i] == T[j] && j <= rc){
+		i++; j++;
+	}
+	if( j > rc){
+		return find_path(P,i, last,c,mlp,mlt);
+	}
+	else {
+		*mlt = j-1;
+		*mlp = i-1;
+		return c;
+	}
+}
+
+void replace_parent(snode *x, snode *v){
+	snode *pv = v->parent;
 	int lx = x->leftEL;
 	int lv = v->leftEL;
-	pv->Cr[get_index(Sx[lx])] = x;
-	x->Cr[get_index(Sx[lv])] = v;
+	pv->Cr[get_index(T[lx])] = x;
+	x->Cr[get_index(T[lv])] = v;
 	v->parent = x;
 	x->parent = pv;
 }
 
-node *find_path(int i, node *r, int *ss, int *jj){
-//	printf("find:%d++%d\n", r->leftEL, r->rightEL);
-	node *c = r->Cr[get_index(Sx[i])];
-//	printf("Sx[%d] : %c\n",i, Sx[i]);
-	if(r->Cr[get_index(Sx[i])] == NULL){
-		*ss = r->rightEL;
-		*jj = i;
-		return r;
-	}
-	int j = i;
-	int s = c->leftEL;
-	int rc = c->rightEL;
-//	printf("%c:index:%d++ j++s: %d++%d\n", Sx[i],get_index(Sx[i]),j, s);
 
-	while(Sx[j] == Sx[s] && s <= rc){
-		j++; s++;
-	}
-	if( s > rc){
-		return find_path(j,c,ss,jj);
-	}
-	else {
-		*ss = s-1;
-		*jj = j;
-		return c;
-	}
-	return NULL;
-}
-
-node *init_suffix_tree(char Sx[]){
-	node *r = make_node(0,0);
-	node *u = make_leaf(1,1);
-	r->Cr[get_index(Sx[1])] = u;
+snode *init_suffix_tree(int n){
+	snode *r = make_node(0,0);
+	snode *u = make_leaf(1,n,1);
+	r->Cr[get_index(T[1])] = u;
 	u->parent = r;
 	return r;
 }
 
 
-node *make_node(int i, int j){
-	node *u  = malloc(sizeof(node));
+snode *make_node(int i, int j){
+	snode *u  = malloc(sizeof(snode));
 	u->leftEL = i;
 	u->rightEL = j;
 	u->node_label = 0;
-	u->Cr = malloc(28*sizeof(node*));
+	u->Cr = malloc(ALPHABET_SIZE*sizeof(snode));
 	u->parent = NULL;
-	u->num_child = 0;
-//	int ii = 0;
-//	for(ii = 0; ii < 28; ii++){
-//		u->Cr[ii] = NULL;
-//	}
+	u->leafcnt = 0;
+	u->strdepth = 0;
 	memset(u->Cr, 0, sizeof(*u->Cr));
 	return u;
 }
 
-node *make_leaf(int i, int k){
-	node *u = make_node(i,n);
+snode *make_leaf(int i,int n, int k){
+	snode *u = make_node(i,n);
 	u->node_label = k;
 	return u;
 }
 
+void update_leaf_count(snode *r){
+	if(r->node_label != 0){
+		r->leafcnt = 1;
+	} else {
+		int leafcnt = 0;
+		int i = 0;
+		for(i = 0; i < ALPHABET_SIZE; i++){
+			if(r->Cr[i] != NULL){
+				update_leaf_count(r->Cr[i]);
+				leafcnt += r->Cr[i]->leafcnt;
+			}
+		}
+		r->leafcnt = leafcnt;
+	}
+}
+
+
+int is_substring(char *P, snode *r){
+	int mlp = 0;
+    int mlt = 0;
+    int m = strlen(P)-1;
+    find_path(P, 1, m, r, &mlp, &mlt);
+    if( m == mlp){
+    	return TRUE;
+    } else {
+    	return FALSE;
+    }
+}
+
+int is_suffix(char *P, char *T){
+	snode *root = native_suffix_tree(T);
+    int mlp = 0;
+    int mlt = 0;
+    int m = strlen(P)-1;
+    snode *v = find_path(P, 1, m, root, &mlp, &mlt);
+    if( v->node_label != 0 && v->rightEL == mlt){
+    	return TRUE;
+    } else {
+    	return FALSE;
+    }
+}
+
+int count_occurence(char *P, snode *r){
+	update_leaf_count(r);
+	int mlp = 0;
+    int mlt = 0;
+    int m = strlen(P)-1;
+    snode *v = find_path(P, 1, m, r, &mlp, &mlt);
+    if(mlp < m) return 0;
+    else return v->leafcnt;
+}
+
+void print_smallest_lex_suffix(snode *r){
+	int i = 0, j, jj = 0;
+	if(r->leftEL == 0 || r->Cr[get_index('{')] == NULL){
+		while(i < ALPHABET_SIZE && r->Cr[i] == NULL)i++;
+			if(i != ALPHABET_SIZE){
+				j = r->Cr[i]->leftEL;
+				jj = r->Cr[i]->rightEL;
+				for(; j <= jj; j++){
+					printf("%c", T[j]);
+				}
+				print_smallest_lex_suffix(r->Cr[i]);
+		}
+	}
+}
+
+
+void update_str_depth(snode *r, int depth){
+	r->strdepth = depth;
+	int i = 0;
+	for(i = 0; i < ALPHABET_SIZE; i++){
+		if(r->Cr[i] != NULL){
+			update_str_depth(r->Cr[i], r->Cr[i]->rightEL - r->Cr[i]->leftEL+ 1 + depth);
+		}
+	}
+}
+
+char *longest_repeated_substr(snode *r){
+	update_str_depth(r,0);
+	snode * dpn = find_nonleaf_deepest_node(r);
+	char *S;
+	S = (char *)malloc(dpn->strdepth*sizeof(char));
+	int i = -1, j = 0;
+	snode *it = dpn;
+	while(it != r){
+		for(j = it->rightEL; j >= it->leftEL; j--){
+			S[++i] = T[j];
+		}
+		it = it->parent;
+	}
+	return strrev(S);
+}
+
+snode *find_nonleaf_deepest_node(snode *r){
+	int i = 0;
+	snode *dpn, *tmp;
+	int j = 0;
+	dpn = r;
+	for(i = 0; i < ALPHABET_SIZE; i++){
+		if(r->Cr[i] != NULL && r->Cr[i]->node_label == 0){
+			tmp = find_nonleaf_deepest_node(r->Cr[i]);
+			if(tmp->strdepth > j){
+				j = tmp->strdepth;
+				dpn = tmp;
+			}
+		}
+	}
+	return dpn;
+}
+// Get the index of a character in the alphabet
 int get_index(char c){
 	return c - 'a';
 }
-

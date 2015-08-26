@@ -12,6 +12,12 @@ typedef unsigned long long int LLU;
 
 void printArr(int arr[] , int n);
 
+/*Compute the reverse string of a string*/
+char *strrev(char *str);
+
+/*Print a string*/
+void print_str(char *str);
+
 /* Computing a^b mod p*/
 LLU mod_power(LLU a, LLU b, LLU p);
 
