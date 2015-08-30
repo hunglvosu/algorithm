@@ -19,55 +19,34 @@
 #define MAXN 20
 #define MAXM 8
 
-typedef struct snode {
-	int leftEL;
-	int rightEL;
-	int node_label;
-	struct snode** Cr; // children pointers
-	struct snode *parent;
-	int leafcnt;  // the number of leaves of the subtree rooted at this node
-	int strdepth; // the string depth
-} snode;
 
-snode *make_node(int i, int j);
-snode *make_leaf(int i,int n, int k);
-void replace_parent(snode *x, snode *v);
-int get_index(char c);
-snode *init_suffix_tree(int n);
-snode *native_suffix_tree(char *Txt);
-snode *find_path(char *P, int first, int last, snode *r, int *mlt, int *mlp);
-int is_substring(char *P, snode *r);
-int is_suffix(char *P, char *Ts);
-int count_occurence(char *P, snode *r);
-char *longest_repeated_substr(snode *r);
-void print_smallest_lex_suffix(snode *r);
 snode *find_nonleaf_deepest_node(snode *r);
 
 char *T;
 char Alphabet[ALPHABET_SIZE];
 
 
-int main (void){
-    char Txt[] = " xabxacxabxxabx{";
-    char Ptn[] = " xab";
-    snode *root = native_suffix_tree(Txt);
-    int iss = is_substring(Ptn,root);
-    if(iss == TRUE){
-    	printf("yes\n");
-    } else {
-    	printf("no\n");
-    }
-    int cnt_occurence = count_occurence(Ptn, root);
-    printf("the number of occurences: %d\n", cnt_occurence);
-    printf("the smallest lexicographic suffix: ");
-    print_smallest_lex_suffix(root);
-    printf("\n");
-    printf("the longest repeated substring: ");
-    char *lrs = longest_repeated_substr(root);
-    print_str(lrs);
-    return 0;
-}
-
+//int main (void){
+//    char Txt[] = " xabxacxabxxabx{";
+//    char Ptn[] = " xab";
+//    snode *root = native_suffix_tree(Txt);
+//    int iss = is_substring(Ptn,root);
+//    if(iss == TRUE){
+//    	printf("yes\n");
+//    } else {
+//    	printf("no\n");
+//    }
+//    int cnt_occurence = count_occurrence(Ptn, root);
+//    printf("the number of occurences: %d\n", cnt_occurence);
+//    printf("the smallest lexicographic suffix: ");
+//    print_smallest_lex_suffix(root);
+//    printf("\n");
+//    printf("the longest repeated substring: ");
+//    char *lrs = longest_repeated_substr(root);
+//    print_str(lrs);
+//    return 0;
+//}
+//
 
 snode *native_suffix_tree(char *Txt){
 	T = Txt;
@@ -85,6 +64,8 @@ snode *native_suffix_tree(char *Txt){
 		 if(mlt < rv){
 			v->leftEL = mlt+1;
 			x = make_node(lv,mlt);
+			snode *pv = v->parent;
+			x->strdepth = pv->strdepth + mlt - lv + 1;
 			replace_parent(x,v);
 		} else {
 			x = v;
@@ -134,6 +115,7 @@ snode *init_suffix_tree(int n){
 	snode *r = make_node(0,0);
 	snode *u = make_leaf(1,n,1);
 	r->Cr[get_index(T[1])] = u;
+	r->slink = r;
 	u->parent = r;
 	return r;
 }
@@ -146,6 +128,7 @@ snode *make_node(int i, int j){
 	u->node_label = 0;
 	u->Cr = malloc(ALPHABET_SIZE*sizeof(snode));
 	u->parent = NULL;
+	u->slink = NULL;
 	u->leafcnt = 0;
 	u->strdepth = 0;
 	memset(u->Cr, 0, sizeof(*u->Cr));
@@ -155,6 +138,7 @@ snode *make_node(int i, int j){
 snode *make_leaf(int i,int n, int k){
 	snode *u = make_node(i,n);
 	u->node_label = k;
+	u->strdepth = n-i+1;
 	return u;
 }
 
@@ -200,7 +184,7 @@ int is_suffix(char *P, char *T){
     }
 }
 
-int count_occurence(char *P, snode *r){
+int count_occurrence(char *P, snode *r){
 	update_leaf_count(r);
 	int mlp = 0;
     int mlt = 0;
@@ -225,19 +209,7 @@ void print_smallest_lex_suffix(snode *r){
 	}
 }
 
-
-void update_str_depth(snode *r, int depth){
-	r->strdepth = depth;
-	int i = 0;
-	for(i = 0; i < ALPHABET_SIZE; i++){
-		if(r->Cr[i] != NULL){
-			update_str_depth(r->Cr[i], r->Cr[i]->rightEL - r->Cr[i]->leftEL+ 1 + depth);
-		}
-	}
-}
-
 char *longest_repeated_substr(snode *r){
-	update_str_depth(r,0);
 	snode * dpn = find_nonleaf_deepest_node(r);
 	char *S;
 	S = (char *)malloc(dpn->strdepth*sizeof(char));
@@ -272,3 +244,16 @@ snode *find_nonleaf_deepest_node(snode *r){
 int get_index(char c){
 	return c - 'a';
 }
+
+//void print_depth(snode *r){
+//		printf("depth: %d---%d = %d \n", r->leftEL, r->rightEL, r->strdepth);
+//		int i = 0;
+//		for(i = 0; i < ALPHABET_SIZE; i++){
+//			if(r->Cr[i] != NULL){
+//				if(r->Cr[i]->node_label != 0){
+//					printf("leaf: %d  ", r->Cr[i]->node_label);
+//				}
+//				print_depth(r->Cr[i]);
+//			}
+//		}
+//}

@@ -11,6 +11,8 @@
 #include "stringsearch.h"
 #define MAXM 20
 
+char *T;
+char *P;
 //char T[] = " dlcimglkblhcch";
 //char P[] = " mglkblhc";
 
@@ -31,7 +33,11 @@ void compute_failure(int m);
 //	return 0;
 //}
 
-int BFmatcher(int n, int m){
+int BFmatcher(char *Txt, char *Ptn){
+	T = Txt;
+	P = Ptn;
+	int n = strlen(T)-1;
+	int m = strlen(P)-1;
 	int i = 0, s = 0;
 	int matched = 1;
 	for(i = 1;  i <= n-m+1; i++){
