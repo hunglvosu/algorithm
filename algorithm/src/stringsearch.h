@@ -43,11 +43,6 @@ void replace_parent(snode *x, snode *v);
   and the last matched location of the pattern P, which is mlp */
 snode *find_path(char *P, int first, int last, snode *r, int *mlp, int *mlt);
 
-/*Find a string P[first,..., last] in the suffix tree with root r when we know the
-  length of the matched substring, return the last matched location of the text T, which is mlt,
-  and the last matched location of the pattern P, which is mlp */
-snode *fast_find_path(char *P, int first, int last, int L, snode *r, int *mlt);
-
 /*The suffix tree built by native algorithm*/
 snode *native_suffix_tree(char *Txt);
 
