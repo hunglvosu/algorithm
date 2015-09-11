@@ -41,26 +41,26 @@ snode *init_suffix_tree(int n);
 /*Replace parent of node v by x in the suffix tree*/
 void replace_parent(snode *x, snode *v);
 
-int main (void){
-	char Txt[] = " xabxacxabxxabx{";
-	char Ptn[] = " xab";
-	snode *root = mccreight_suffix_tree(Txt);
-    int iss = is_substring(Ptn,root);
-    if(iss == TRUE){
-    	printf("yes\n");
-    } else {
-    	printf("no\n");
-    }
-    int cnt_occurence = count_occurrence(Ptn, root);
-    printf("the number of occurences: %d\n", cnt_occurence);
-    printf("the smallest lexicographic suffix: ");
-    print_smallest_lex_suffix(root);
-    printf("\n");
-    printf("the longest repeated substring: ");
-    char *lrs = longest_repeated_substr(root);
-    print_str(lrs);
-    return 0;
-}
+//int main (void){
+//	char Txt[] = " xabxacxabxxabx{";
+//	char Ptn[] = " xab";
+//	snode *root = mccreight_suffix_tree(Txt);
+//    int iss = is_substring(Ptn,root);
+//    if(iss == TRUE){
+//    	printf("yes\n");
+//    } else {
+//    	printf("no\n");
+//    }
+//    int cnt_occurence = count_occurrence(Ptn, root);
+//    printf("the number of occurences: %d\n", cnt_occurence);
+//    printf("the smallest lexicographic suffix: ");
+//    print_smallest_lex_suffix(root);
+//    printf("\n");
+//    printf("the longest repeated substring: ");
+//    char *lrs = longest_repeated_substr(root);
+//    print_str(lrs);
+//    return 0;
+//}
 
 snode *mccreight_suffix_tree(char *Txt){
 		T = Txt;

@@ -71,6 +71,13 @@ char *longest_repeated_substr(snode *r);
 void print_smallest_lex_suffix(snode *r);
 
 
+/*Ac algorithm for building suffix array*/
+int *pd_suffix_array(char *Txt);
+
+/*The algorithm based on Rabin-Karp fingerprint for building suffix array*/
+
+int *rk_suffix_array(char *Txt);
+
 /*An implementation of brute-force string matching algorithm*/
 int BFmatcher(char *Txt,char *Ptn);
 

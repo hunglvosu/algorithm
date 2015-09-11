@@ -11,6 +11,8 @@
 typedef unsigned long long int LLU;
 #define PRIME 1
 #define COMPOSITE 0
+#define min(x, y) (((x) < (y)) ? (x) : (y))
+#define max(x, y) (((x) < (y)) ? (y) : (x))
 
 
 /*Miller-Rabin primality testing algorithm*/

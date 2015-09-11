@@ -7,6 +7,7 @@
 #include <string.h>
 #include<stdlib.h>
 #include<math.h>
+#include "utilities.h"
 
 typedef unsigned long long int LLU;
 
@@ -56,7 +57,7 @@ char *random_string(int length){
 	str[length] = '\0';
 	return str;
 }
-void printArr(int arr[] , int n){
+void print_int_array(int arr[] , int n){
 	int i = 0;
 	for (i = 0 ; i < n ; i++){
 		printf("%d,", arr[i]);
@@ -64,7 +65,13 @@ void printArr(int arr[] , int n){
 	printf("\n");
 }
 
-
+void print_llu_array(LLU arr[] , int n){
+	int i = 0;
+	for (i = 0 ; i < n ; i++){
+		printf("%llu,", arr[i]);
+	}
+	printf("\n");
+}
 
 void print_list(struct node *root){
 	struct node *conductor;

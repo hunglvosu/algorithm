@@ -10,7 +10,8 @@
 
 typedef unsigned long long int LLU;
 
-void printArr(int arr[] , int n);
+void print_int_array(int arr[] , int n);
+void print_llu_array(LLU arr[] , int n);
 
 /*Compute the reverse string of a string*/
 char *strrev(char *str);
