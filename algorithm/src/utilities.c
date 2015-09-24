@@ -158,7 +158,7 @@ LLU random64(){
 	n = n | ((LLU)l);
 	return n;
 }
-void display_bit(LLU n){
+void display_bit_llu(LLU n){
 	int bit[64];
 	int i = 0;
 	for(i = 0; i < 64; i++){
@@ -166,6 +166,20 @@ void display_bit(LLU n){
 		n = n >> 1;
 	}
 	for(i = 0; i < 64;i ++){
+		printf("%d", bit[i]);
+	}
+	printf("\n");
+}
+
+
+void display_bit_int(int n){
+	int bit[32];
+	int i = 0;
+	for(i = 0; i < 32; i++){
+		bit[31-i] = (n& 1);
+		n = n >> 1;
+	}
+	for(i = 0; i < 32;i ++){
 		printf("%d", bit[i]);
 	}
 	printf("\n");

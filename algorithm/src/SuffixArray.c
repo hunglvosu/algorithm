@@ -36,12 +36,12 @@ int rk_compare(const void *a, const void *b);
 int lex_compare(const void *u, const void *v);
 LLU hashcode(int i, int j);
 
-int main (void){
-	char Txt[] = " gcgaoblbrqgrjrpkimqlcdbqhe`";
-	print_int_array(rk_suffix_array(Txt), 28);
-	print_int_array(pd_suffix_array(Txt), 28);
-	return 0;
-}
+//int main (void){
+//	char Txt[] = " gcgaoblbrqgrjrpkimqlcdbqhe`";
+//	print_int_array(rk_suffix_array(Txt), 28);
+//	print_int_array(pd_suffix_array(Txt), 28);
+//	return 0;
+//}
 int *rk_suffix_array(char *Txt){
 	T = Txt;
     n = strlen(T)-1;

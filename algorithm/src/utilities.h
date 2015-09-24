@@ -31,6 +31,11 @@ LLU random64();
 /*Computing the greatest common divisor of a and b*/
 LLU gcd(LLU a, LLU b);
 
+/*Display the usigned 64 bit integers*/
+void display_bit_llu(LLU n);
+
+/*Display the bit representation of a singed 32 bit integers*/
+void display_bit_int(int n);
 
 /* Computing the floor of square root of a 64-bit integer
  See http://www.giaithuatlaptrinh.com/?p=402 for details. */
