@@ -286,21 +286,21 @@ unsigned int swap_bitsB(unsigned int x, int i, int j){
 	return x;
 }
 
-int main (void){
-	int i = 0;
-	is_power_of_2_test();
-	is_diff_sign_test();
-	abs_test();
-	sign_ext_test();
-	exchange_test();
-	min_test();
-	cond_negation_test();
-	build_lookup_table();
-	count_ones_test();
-	count_zeros_test();
-	bit_reversal_test();
-	bit_swap_test();
-}
+//int main (void){
+//	int i = 0;
+//	is_power_of_2_test();
+//	is_diff_sign_test();
+//	abs_test();
+//	sign_ext_test();
+//	exchange_test();
+//	min_test();
+//	cond_negation_test();
+//	build_lookup_table();
+//	count_ones_test();
+//	count_zeros_test();
+//	bit_reversal_test();
+//	bit_swap_test();
+//}
 void is_power_of_2_test(){
 	LLU x = (LLU)1125899906842626;
 	printf("test #1A: is %llu a power of 2? Answer  = %d\n",x, is_power_of_2A(x));

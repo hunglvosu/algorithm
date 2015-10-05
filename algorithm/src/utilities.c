@@ -57,9 +57,9 @@ char *random_string(int length){
 	str[length] = '\0';
 	return str;
 }
-void print_int_array(int arr[] , int n){
+void print_int_array(int arr[] , int f, int l){
 	int i = 0;
-	for (i = 0 ; i < n ; i++){
+	for (i = f ; i <= l  ; i++){
 		printf("%d,", arr[i]);
 	}
 	printf("\n");
