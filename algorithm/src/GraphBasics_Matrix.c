@@ -11,8 +11,9 @@
 #include<string.h>
 
 #define UNVISITED 0
-#define VISITING 1
-#define VISITED 2
+#define VISITED 1
+#define TRUE 1
+#define FALSE 0
 #define INFTY 1000000
 
 
@@ -37,18 +38,24 @@ void recursive_dfs(int s);
 int connected_component();
 
 
-int *Cq; 		// simple array queue implementation of C for bfs
-int qfirst, qend;
-void enqueue(int elem); // push an element to the queue
-int dequeue(); 		// take (and remove) an element from the queue
-int is_queue_empty();	
+typedef struct Stack {
+	int *storage;
+	int top;	
+} Stack;
 
+typedef struct Queue{
+	int *storage;
+	int back, front;
+}Queue;
+Queue *init_queue(int size);
+void enqueue(Queue *Q, int elem); // push an element to the queue
+int dequeue(Queue *Q); 		// take (and remove) an element from the queue
+int is_queue_empty(Queue *Q);	
 
-int *Cs; 		// simple array stack implementation of C for dfs;
-int stop; 		// the top of the stack
-void push(int elem); 	// push an element to the stack
-int pop();  		// take (and remove) an element from the queue
-int is_stack_empty();
+Stack *init_stack(int size);
+void push(Stack *S, int elem); 	// push an element to the stack
+int pop(Stack *S);  		// take (and remove) an element from the queue
+int is_stack_empty(Stack *S);
 
 int main (void){
 	read();
@@ -81,10 +88,14 @@ void read(){
 		G[i] = (int *)malloc(n*sizeof(int));
 		memset(G[i], 0, n*sizeof(int));
 	}
-	add_edge(0,1);
-	add_edge(0,2);
-	add_edge(1,2);
-	add_edge(4,5);
+	G[0][1] = 1;
+	G[1][0] = 1;
+	G[0][2] = 1;
+	G[2][0] = 1;
+	G[1][2] = 1;
+	G[2][1] = 1;
+	G[4][5] = 1;
+	G[5][4] = 1;
 }
 
 
@@ -93,26 +104,24 @@ void bfs(int s){
 	D = (int *)(malloc(n*sizeof(int)));
 	int i = 0;
 	for(; i < n; i++) D[i] = INFTY;
-
-	Cq = (int *)malloc(n*sizeof(int));
-	enqueue(s);
+	Queue *Q = init_queue(n);
+	enqueue(Q,s);
 	D[s] = 0;
 	int u;
 	int v;
-	while(!is_queue_empty()){
-		u = dequeue();
-		printf("visiting %d\n",u);
-		mark[u] = VISITED;
-		// loop through neighbors of u
-		for(v = 0; v < n; v++){
-			if(G[u][v] == 1 && mark[v] == UNVISITED){
-				mark[v] = VISITING;
-				D[v] = D[u]+1;
-				enqueue(v);
+	while(!is_queue_empty(Q)){
+		u = dequeue(Q);
+		if(mark[u] == UNVISITED){
+			printf("visiting %d\n",u);
+			mark[u] = VISITED;
+			// loop through adjaceny list of u
+			for(v = 0; v < n; v++){
+				if(G[u][v] == 1 && mark[v] == UNVISITED){
+					D[v] = D[u]+1;
+					enqueue(Q,v);
+				}
 			}
-
 		}
-
 	}
 	printf("done bfs\n");
 }
@@ -121,22 +130,22 @@ void bfs(int s){
 void dfs(int s){
 	printf("executing dfs from %d.......\n",s);
 	/*Initialize the stack*/
-	Cs = (int *)malloc(n*sizeof(int));
-	stop = -1;
-	push(s);
+	Stack *S = init_stack(n);
+	push(S, s);
 	int u;
 	int v;
-	while(!is_stack_empty()){
-		u = pop();
-		printf("visiting %d\n",u);
-		mark[u] = VISITED;
-		// loop through neighbors of u
-		for(v = 0; v < n; v ++){
-			if(G[u][v] == 1 && mark[v] == UNVISITED){
-				mark[v] = VISITING;
-				push(v);
+	while(!is_stack_empty(S)){
+		u = pop(S);
+		if(mark[u] == UNVISITED){
+			printf("visiting %d\n",u);
+			mark[u] = VISITED;
+			// loop through neighbors of u
+			for(v = 0; v < n; v ++){
+				if(G[u][v] == 1 && mark[v] == UNVISITED){
+					push(S,v);
+				}
 			}
-		}
+		}	
 	}
 	printf("done dfs\n");
 }
@@ -171,11 +180,6 @@ int connected_component(){
 }
 
 
-void  add_edge(int u, int v){
-		G[u][v] = 1;
-		G[v][u] = 1;
-	}
-
 void print_graph(){
 	int u  = 0;
 	int v = 0;
@@ -188,22 +192,29 @@ void print_graph(){
 ////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void enqueue(int elem){
-	Cq[qend] = elem;
-	qend++;
+Queue *init_queue(int size){
+	Queue *Q = malloc(sizeof(Queue));
+	Q->storage = (int *)malloc(size*sizeof(int));
+	Q->front = 0;
+	Q->back = -1;
+	return Q;
 }
-int dequeue(){
-	if(is_queue_empty()) {
+void enqueue(Queue *Q, int elem){
+	Q->back ++;
+	Q->storage[Q->back] = elem;
+}
+int dequeue(Queue *Q){
+	if(is_queue_empty(Q)) {
 		printf("nothing to dequeue\n");
 		exit(0);
 	}
-	int elem = Cq[qfirst];
-	qfirst++;
+	int elem = Q->storage[Q->front];
+	Q->front++;
 	return elem;
 }
 
-int is_queue_empty(){
-	return qfirst < qend? 0 : 1;
+int is_queue_empty(Queue* Q){
+	return Q->back < Q->front? TRUE : FALSE;
 }
 
 
@@ -212,24 +223,31 @@ int is_queue_empty(){
 ////////////////	THE STACK INTERFACES
 ////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void push(int elem){
-	stop++;
-	Cs[stop] = elem;
+Stack *init_stack(int size){
+	Stack *S = (Stack *)malloc(sizeof(Stack));
+	S->top = -1;
+	S->storage = (int*)malloc(size*sizeof(int));
+	return S;
 }
-int pop(){
-	if(is_stack_empty()){
+
+void push(Stack *S, int elem){
+	S->top++;
+	S->storage[S->top] = elem;
+}
+int pop(Stack *S){
+	if(is_stack_empty(S)){
 		printf("nothing to pop\n");
 		exit(0);
 	}
-	int elem = Cs[stop];
-	stop--;
+	int elem = S->storage[S->top];
+	S->top--;
 	return elem;
 }
 
-int is_stack_empty(){
-	return stop < 0 ? 1: 0;
+int is_stack_empty(Stack *S){
+	return S->top < 0 ? TRUE: FALSE;
 }
+
 
 
 void print_int_array(int *arr , int f, int l){
